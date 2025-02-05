@@ -1,23 +1,50 @@
 import { Routes } from '@angular/router';
-import { AppLayout } from './app/layout/component/app.layout';
-import { Dashboard } from './app/pages/dashboard/dashboard';
-import { Documentation } from './app/pages/documentation/documentation';
-import { Landing } from './app/pages/landing/landing';
-import { Notfound } from './app/pages/notfound/notfound';
+import { ListagemComponent } from './app/pages/listagem/listagem.component';
+import { CadastroComponent } from './app/pages/cadastro/cadastro.component';
+import { DadosBasicosComponent } from './app/@core/dados-basicos/dados-basicos.component';
+import { MetasComponent } from './app/@core/metas/metas.component';
+import { AcoesComponent } from './app/@core/acoes/acoes.component';
 
 export const appRoutes: Routes = [
-    {
-        path: '',
-        component: AppLayout,
+    { 
+        path: '', 
+        component: ListagemComponent 
+    },
+    { 
+        path: 'cadastro', 
+        component: CadastroComponent,
         children: [
-            { path: '', component: Dashboard },
-            { path: 'uikit', loadChildren: () => import('./app/pages/uikit/uikit.routes') },
-            { path: 'documentation', component: Documentation },
-            { path: 'pages', loadChildren: () => import('./app/pages/pages.routes') }
+            { 
+                path: 'dados-basicos',
+                component: DadosBasicosComponent
+            },
+            { 
+                path: 'metas',
+                component: MetasComponent
+            },
+            { 
+                path: 'acoes',
+                component: AcoesComponent
+            },
         ]
     },
-    { path: 'landing', component: Landing },
-    { path: 'notfound', component: Notfound },
-    { path: 'auth', loadChildren: () => import('./app/pages/auth/auth.routes') },
-    { path: '**', redirectTo: '/notfound' }
+    { 
+        path: 'edicao/:id', 
+        component: CadastroComponent,
+        children: [
+            { 
+                path: 'dados-basicos',
+                component: DadosBasicosComponent
+            },
+            { 
+                path: 'metas',
+                component: MetasComponent
+            },
+            { 
+                path: 'acoes',
+                component: AcoesComponent
+            },
+        ]
+    },
+    { path: '**', redirectTo: '' }
 ];
