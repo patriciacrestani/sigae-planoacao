@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
-import { PlanoAcao } from '../../../models/plano-acao';
+import { IPlanoAcao, PlanoAcao } from '../../../models/plano-acao';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 
@@ -12,7 +12,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './listagem.component.html'
 })
 export class ListagemComponent {
-  planosAcao: PlanoAcao[] = [
+  planosAcao: IPlanoAcao[] = [
     {
       id: 1,
       titulo: "Teste",

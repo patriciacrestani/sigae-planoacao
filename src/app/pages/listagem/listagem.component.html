@@ -4,7 +4,7 @@
         <!-- <a routerLink="/cadastrar" class="p-button font-bold">
             <i class="pi pi-plus"></i> Cadastrar
         </a> -->
-        <a routerLink="/cadastrar" class="p-button font-bold">
+        <a routerLink="/cadastro/dados-basicos" class="p-button font-bold">
             Cadastrar
         </a>
     </div>
@@ -25,13 +25,35 @@
                 <td>{{plano.dataInicio}}</td>
                 <td>{{plano.dataFim}}</td>
                 <td>
-                    <a [routerLink]="'/visualizar/'.concat(plano.id)" class="p-button font-bold" aria-label="Visualizar">
+                    <a [routerLink]="'/visualizar/'.concat(plano.id)" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Visualizar">
                         <i class="pi pi-search"></i>
                     </a>
-                    <a [routerLink]="'/editar/'.concat(plano.id)" class="p-button font-bold" aria-label="Editar">
+                    <a [routerLink]="'/editar/'.concat(plano.id)" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
                         <i class="pi pi-pencil"></i>
                     </a>
-                    <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluir(plano.id)" />
+                    <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluir(plano.id)" [text]="true" />
+
+                    <!-- <p-button 
+                        icon="pi pi-search" 
+                        class="mr-2" 
+                        [rounded]="true"
+                        [text]="true" 
+                        [plain]="true"
+                        (onClick)="editarPessoa(pessoa)" />
+                    
+                    <p-button 
+                        icon="pi pi-pencil" 
+                        class="mr-2" 
+                        [rounded]="true"
+                        [text]="true" 
+                        [plain]="true"
+                        (onClick)="editarPessoa(pessoa)" />
+                    <p-button 
+                        icon="pi pi-trash" 
+                        [text]="true" 
+                        [rounded]="true"
+                        [plain]="true"
+                        (onClick)="confirmaExclusao(pessoa)" /> -->
                 </td>
             </tr>
         </ng-template>
