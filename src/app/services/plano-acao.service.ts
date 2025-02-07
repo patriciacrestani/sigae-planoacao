@@ -37,6 +37,18 @@ export class PlanoAcaoService {
     this.localStorageService.setItem(plano);
   }
 
+  cadastraMetas(metas, idPlano?) {
+    let plano = this.buscaPlano(idPlano);
+    plano.mapeiaMetas(metas);
+    this.localStorageService.setItem(plano);
+  }
+
+  excluirMeta(idPlano, idMeta) {
+    let plano = this.buscaPlano(idPlano);
+    plano.excluirMeta(idMeta);
+    this.localStorageService.setItem(plano);
+  }
+
   getStatus() {
     return this.http.get<any[]>("https://example.com/plano-acao/status").pipe(
       map(status => 

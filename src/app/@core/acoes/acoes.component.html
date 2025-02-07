@@ -1,1 +1,38 @@
-<p>acoes works!</p>
+<div class="form">
+    <div *ngFor="let meta of metas; let iMeta = index">
+        <div class="flex justify-between">
+            <h2>{{meta.titulo}}</h2>
+            <p-button label="Adicionar ação" icon="pi pi-plus" (onClick)="adicionarAcao()"/>
+        </div>
+
+        <ng-container *ngIf="meta.indPossuiAcoes">
+            <p-table [value]="meta.acoes" [tableStyle]="{ 'min-width': '50rem' }">
+                <ng-template #header>
+                    <tr>
+                        <th>{{ formConfig.labels.descricao }}</th>
+                        <th>{{ formConfig.labels.dataInicioPrevisto }}</th>
+                        <th>{{ formConfig.labels.dataFimPrevisto }}</th>
+                        <th>{{ formConfig.labels.responsavel }}</th>
+                        <th></th>
+                    </tr>
+                </ng-template>
+                <ng-template #body let-acao>
+                    <tr>
+                        <td>{{ acao.descricao }}</td>
+                        <td>{{ acao.dataInicioPrevisto }}</td>
+                        <td>{{ acao.dataFimPrevisto }}</td>
+                        <td>{{ acao.responsaveis.length }}</td>
+                        <td>
+                            <p-button icon="pi pi-pencil" aria-label="Editar" (onClick)="editarAcao(acao.id)" [text]="true" />
+                            <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluirAcao(acao.id)" [text]="true" />
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </ng-container>
+
+        <ng-container *ngIf="!meta.indPossuiAcoes">
+            <p>Nenhuma ação cadastrada para esta meta.</p>
+        </ng-container>
+    </div>
+</div>
