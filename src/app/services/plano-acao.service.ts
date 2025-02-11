@@ -11,42 +11,38 @@ import { map } from 'rxjs';
 export class PlanoAcaoService {
   static readonly NovoPlanoKey: string = "NOVO_PLANO_KEY";
   planos: PlanoAcao[];
+  plano: PlanoAcao;
 
   constructor(
-    // private store: Store<PlanosState>,
     private localStorageService: LocalStorageService,
     private http: HttpClient
   ) { }
 
-  buscaPlano(idPlano): PlanoAcao {
-    if(!idPlano) {
-      return new PlanoAcao();
-    }
-
-    let indexPlano = this.planos.findIndex(p => p.id == idPlano);
-    if(indexPlano == -1) {
-      return new PlanoAcao();
-    }
-
-    return this.planos[indexPlano];
+  possuiPlanos() {
+    return (!!this.planos && this.planos.length > 0);
   }
 
-  cadastraDadosBasicos(dadosBasicos, idPlano?) {
-    let plano = this.buscaPlano(idPlano);
-    plano.mapeiaDadosBasicos(dadosBasicos);
-    this.localStorageService.setItem(plano);
+  carregaPlano(idPlano) {
+    this.plano = new PlanoAcao(this.possuiPlanos() ? this.planos.find(idPlano) : null);
   }
 
-  cadastraMetas(metas, idPlano?) {
-    let plano = this.buscaPlano(idPlano);
-    plano.mapeiaMetas(metas);
-    this.localStorageService.setItem(plano);
+  novoPlano(plano?: PlanoAcao) {
+    this.plano = new PlanoAcao(plano);
   }
 
-  excluirMeta(idPlano, idMeta) {
-    let plano = this.buscaPlano(idPlano);
-    plano.excluirMeta(idMeta);
-    this.localStorageService.setItem(plano);
+  salvarDadosBasicos(dadosBasicos) {
+    this.plano.mapeiaDadosBasicos(dadosBasicos);
+    this.localStorageService.setItem(this.plano);
+  }
+
+  salvarMelhorias(melhorias) {
+    this.plano.mapeiaMelhorias(melhorias);
+    this.localStorageService.setItem(this.plano);
+  }
+
+  excluirMelhoria(idMelhoria) {
+    this.plano.excluirMelhoria(idMelhoria);
+    this.localStorageService.setItem(this.plano);
   }
 
   getStatus() {
@@ -55,6 +51,24 @@ export class PlanoAcaoService {
         status.map(s => 
           new Status(s)
         )
+      )
+    );
+  }
+
+  getPlanos() {
+    return this.http.get<any[]>("https://example.com/plano-acao").pipe(
+      map(planos => 
+        this.planos = planos.map(p => 
+          new PlanoAcao(p)
+        )
+      )
+    );
+  }
+
+  getPlano() {
+    return this.http.get<any[]>("https://example.com/plano-acao/1").pipe(
+      map(plano => 
+        this.plano = new PlanoAcao(plano)
       )
     );
   }

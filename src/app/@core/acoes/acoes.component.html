@@ -1,12 +1,12 @@
 <div class="form">
-    <div *ngFor="let meta of metas; let iMeta = index">
+    <div *ngFor="let melhoria of melhorias; let iMelhoria = index">
         <div class="flex justify-between">
-            <h2>{{meta.titulo}}</h2>
+            <h2>{{melhoria.titulo}}</h2>
             <p-button label="Adicionar ação" icon="pi pi-plus" (onClick)="adicionarAcao()"/>
         </div>
 
-        <ng-container *ngIf="meta.indPossuiAcoes">
-            <p-table [value]="meta.acoes" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-container *ngIf="melhoria.indPossuiAcoes">
+            <p-table [value]="melhoria.acoes" [tableStyle]="{ 'min-width': '50rem' }">
                 <ng-template #header>
                     <tr>
                         <th>{{ formConfig.labels.descricao }}</th>
@@ -31,8 +31,8 @@
             </p-table>
         </ng-container>
 
-        <ng-container *ngIf="!meta.indPossuiAcoes">
-            <p>Nenhuma ação cadastrada para esta meta.</p>
+        <ng-container *ngIf="!melhoria.indPossuiAcoes">
+            <p>Nenhuma ação cadastrada para esta melhoria.</p>
         </ng-container>
     </div>
 </div>

@@ -1,4 +1,4 @@
-import { Meta } from "./meta";
+import { Melhoria } from "./melhoria";
 import { Status } from "./status";
 
 
@@ -9,7 +9,7 @@ export interface IPlanoAcao {
     dataInicio: string;
     dataFim: string;
     status: Status;
-    metas?: Meta[];
+    melhorias?: Melhoria[];
 }
 
 export class PlanoAcao {
@@ -19,10 +19,22 @@ export class PlanoAcao {
     dataInicio: string;
     dataFim: string;
     status: Status;
-    metas?: Meta[];
+    melhorias?: Melhoria[];
 
-    get possuiMetas(): boolean {
-        return (!!this.metas && this.metas.length > 0);
+    constructor(plano?) {
+        if(!!plano) {
+            this.id = plano.id;
+            this.titulo = plano.titulo;
+            this.descricao = plano.descricao;
+            this.dataInicio = plano.dataInicio;
+            this.dataFim = plano.dataFim;
+            this.status = new Status(plano.status);
+            this.mapeiaMelhorias(plano.melhorias);
+        }
+    }
+
+    get possuiMelhorias(): boolean {
+        return (!!this.melhorias && this.melhorias.length > 0);
     }
 
     mapeiaDadosBasicos(dadosBasicos) {
@@ -33,14 +45,14 @@ export class PlanoAcao {
         this.status = dadosBasicos["status"];
     }
 
-    mapeiaMetas(metas) {
-        this.metas = metas.map(meta => new Meta(meta));
+    mapeiaMelhorias(melhorias) {
+        if(!!melhorias && melhorias.length > 0) this.melhorias = melhorias.map(melhoria => new Melhoria(melhoria));
     }
 
-    excluirMeta(idMeta) {
-        let indexMeta = this.metas?.findIndex(meta => meta.id == idMeta);
-        if(!!indexMeta && indexMeta != -1) {
-            this.metas = this.metas?.splice(indexMeta, 1);
+    excluirMelhoria(idMelhoria) {
+        let indexMelhoria = this.melhorias?.findIndex(melhoria => melhoria.id == idMelhoria);
+        if(!!indexMelhoria && indexMelhoria != -1) {
+            this.melhorias = this.melhorias?.splice(indexMelhoria, 1);
         }
     }
 }

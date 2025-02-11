@@ -5,24 +5,24 @@ import { ButtonModule } from 'primeng/button';
 import { FloatLabelModule, FloatLabel } from 'primeng/floatlabel';
 import { FluidModule } from 'primeng/fluid';
 import { InputTextModule } from 'primeng/inputtext';
-import { metasFormConfig } from './metas-form-config';
+import { melhoriasFormConfig } from './melhorias-form-config';
 import { ActivatedRoute, Router } from '@angular/router';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
-import { Meta } from '../../../models/meta';
+import { Melhoria } from '../../../models/melhoria';
 import { PlanoAcao } from '../../../models/plano-acao';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ConfirmDialog } from 'primeng/confirmdialog';
 import { ToastModule } from 'primeng/toast';
 
 @Component({
-  selector: 'app-metas',
+  selector: 'app-melhorias',
   imports: [CommonModule, ReactiveFormsModule, FormsModule, FloatLabelModule, InputTextModule, ButtonModule, FloatLabel, FluidModule, ConfirmDialog, ToastModule],
-  templateUrl: './metas.component.html',
-  styleUrl: './metas.component.scss',
+  templateUrl: './melhorias.component.html',
+  styleUrl: './melhorias.component.scss',
   providers: [ConfirmationService, MessageService]
 })
-export class MetasComponent {
-  readonly formConfig = metasFormConfig;
+export class MelhoriasComponent {
+  readonly formConfig = melhoriasFormConfig;
   form: FormGroup;
 
   constructor(
@@ -34,42 +34,48 @@ export class MetasComponent {
     private messageService: MessageService
   ) {
     this.createForm();
+    this.obtemPlano();
   }
 
   createForm() {
     this.form = this.fb.group({
-      metas: new FormArray([]),
+      melhorias: new FormArray([]),
     });
+  }
 
-    this.addMeta();
+  obtemPlano() {
+    this.atualizaFormulario(this.planoAcaoService.plano);
   }
   
-  get metas(): FormArray {
-    return this.form.get("metas") as FormArray;
+  get melhorias(): FormArray {
+    return this.form.get("melhorias") as FormArray;
   }
 
-  get metasForms(): FormGroup[] {
-    return this.metas.controls as FormGroup[];
+  get melhoriasForms(): FormGroup[] {
+    return this.melhorias.controls as FormGroup[];
   }
 
-  addMeta(meta?: Meta) {
-    this.metas.push(this.fb.group({
-      id: [meta ? meta.id : ''],
-      titulo: [meta ? meta.id : ''],
-      indPossuiAcoes: [meta ? meta.indPossuiAcoes : false]
+  addMelhoria(melhoria?: Melhoria) {
+    this.melhorias.push(this.fb.group({
+      id: [melhoria ? melhoria.id : ''],
+      titulo: [melhoria ? melhoria.id : ''],
+      indPossuiAcoes: [melhoria ? melhoria.indPossuiAcoes : false]
     }));
   }
 
-  excluirMeta(metaIndex) {
-    this.metas.removeAt(metaIndex);
-    this.messageService.add({ severity: 'success', detail: 'Meta excluída!' });
+  excluirMelhoria(melhoriaIndex) {
+    if(this.melhorias.at(melhoriaIndex).get("id")!.value) {
+      this.planoAcaoService.excluirMelhoria(this.melhorias.at(melhoriaIndex).get("id")!.value);
+    }
+    this.melhorias.removeAt(melhoriaIndex);
+    this.messageService.add({ severity: 'success', detail: 'Melhoria excluída!' });
   }
 
-  confirmarExclusao(event: Event, metaIndex) {
-    if(this.metas.at(metaIndex).get("indPossuiAcoes")!.value) {
+  confirmarExclusao(event: Event, melhoriaIndex) {
+    if(this.melhorias.at(melhoriaIndex).get("indPossuiAcoes")!.value) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: 'Ao excluir esta meta, todas as ações atreladas a ela também serão excluída. Deseja continuar?',
+        message: 'Ao excluir esta melhoria, todas as ações atreladas a ela também serão excluída. Deseja continuar?',
         header: 'Atenção!',
         closable: true,
         closeOnEscape: true,
@@ -83,24 +89,25 @@ export class MetasComponent {
           label: 'Excluir',
         },
         accept: () => {
-          this.excluirMeta(metaIndex);
+          this.excluirMelhoria(melhoriaIndex);
         }
       });
     } else {
-      this.excluirMeta(metaIndex);
+      this.excluirMelhoria(melhoriaIndex);
     }
   }
 
   desabilitarExclusao(): boolean {
-    return (this.metas.length == 1);
+    return (this.melhorias.length == 1);
   }
 
   atualizaFormulario(plano: PlanoAcao) {
-    if(plano.possuiMetas) {
-      plano.metas?.forEach(meta => {
-        this.addMeta(meta);
+    if(plano.possuiMelhorias) {
+      plano.melhorias?.forEach(melhoria => {
+        this.addMelhoria(melhoria);
       });
     }
+    this.addMelhoria();
   }
 
   desabilitaAvancar(): boolean {
@@ -108,7 +115,7 @@ export class MetasComponent {
   }
 
   avancar() {
-    this.planoAcaoService.cadastraMetas(this.form.getRawValue());
+    this.planoAcaoService.salvarMelhorias(this.form.getRawValue());
     this.router.navigate(['..', 'acoes'], { relativeTo: this.route });
   }
 }

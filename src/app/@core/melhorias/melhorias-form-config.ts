@@ -1,9 +1,9 @@
-export const metasFormConfig = {
+export const melhoriasFormConfig = {
     labels: {
-        titulo: "Meta"
+        titulo: "Melhoria"
     },
     placeholders: {
-        titulo: "Digite o título da meta"
+        titulo: "Digite o título da melhoria"
     },
     maxLengths: {
         titulo: 255

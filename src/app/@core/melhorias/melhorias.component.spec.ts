@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MetasComponent } from './metas.component';
+import { MelhoriasComponent } from './melhorias.component';
 
-describe('MetasComponent', () => {
-  let component: MetasComponent;
-  let fixture: ComponentFixture<MetasComponent>;
+describe('MelhoriasComponent', () => {
+  let component: MelhoriasComponent;
+  let fixture: ComponentFixture<MelhoriasComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MetasComponent]
+      imports: [MelhoriasComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(MetasComponent);
+    fixture = TestBed.createComponent(MelhoriasComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

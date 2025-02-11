@@ -6,9 +6,9 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
 import { Acao } from '../../../models/acao';
 import { acoesFormConfig } from './acoes-form-config';
-import { Meta } from '../../../models/meta';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
+import { Melhoria } from '../../../models/melhoria';
 
 @Component({
   selector: 'app-acoes',
@@ -19,7 +19,7 @@ import { ButtonModule } from 'primeng/button';
 export class AcoesComponent {
   readonly formConfig = acoesFormConfig;
   form: FormGroup;
-  metas: Meta[];
+  melhorias: Melhoria[];
 
   constructor(
     private router: Router,

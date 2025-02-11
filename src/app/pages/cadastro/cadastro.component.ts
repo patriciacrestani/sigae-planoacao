@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { MenuItem } from 'primeng/api';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StepsModule } from 'primeng/steps';
+import { PlanoAcaoService } from '../../services/plano-acao.service';
 
 @Component({
   selector: 'app-cadastro',
@@ -18,12 +19,25 @@ export class CadastroComponent {
       routerLink: 'dados-basicos'
     },
     {
-      label: 'Metas',
-      routerLink: 'metas'
+      label: 'Melhorias',
+      routerLink: 'melhorias'
     },
     {
       label: 'Ações',
       routerLink: 'acoes'
     }
   ];
+
+  constructor(
+    private route: ActivatedRoute,
+    private planoAcaoService: PlanoAcaoService
+  ) {
+    this.checkRouteId();
+  }
+
+  checkRouteId() {
+    this.route.paramMap.subscribe(params => {
+      this.planoAcaoService.carregaPlano(params.get("id"));
+    });
+  }
 }

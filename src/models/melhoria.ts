@@ -1,6 +1,6 @@
 import { Acao } from "./acao";
 
-export interface IMeta {
+export interface IMelhoria {
     id: number;
     titulo: string;
     acoes: Acao[];
@@ -8,7 +8,7 @@ export interface IMeta {
     get indPossuiAcoes(): boolean;
 }
 
-export class Meta implements IMeta {
+export class Melhoria implements IMelhoria {
     id: number;
     titulo: string;
     acoes: Acao[];
@@ -17,11 +17,11 @@ export class Meta implements IMeta {
         return (!!this.acoes && this.acoes.length > 0);
     }
 
-    constructor(meta) {
-        this.id = meta["id"];
-        this.titulo = meta["titulo"];
-        if(!!meta["acoes"] && meta["acoes"].length > 0) {
-            this.acoes = meta["acoes"];
+    constructor(melhoria) {
+        this.id = melhoria["id"];
+        this.titulo = melhoria["titulo"];
+        if(!!melhoria["acoes"] && melhoria["acoes"].length > 0) {
+            this.acoes = melhoria["acoes"];
         } else {
             this.acoes = [];
         }

@@ -1,21 +1,21 @@
 <form [formGroup]="form" *ngIf="form" class="form">
-    <ng-container formArrayName="metas">
-        <ng-container *ngFor="let metaForm of metasForms; let i = index">
+    <ng-container formArrayName="melhorias">
+        <ng-container *ngFor="let melhoriaForm of melhoriasForms; let i = index">
             <p-fluid>
-                <div class="pt-5 pb-4 flex gap-4 w-full" [formGroup]="metaForm">
+                <div class="pt-5 pb-4 flex gap-4 w-full" [formGroup]="melhoriaForm">
                     <p-floatlabel class="grow">
                         <input id="titulo{{i}}" pInputText formControlName="titulo" />
                         <label for="titulo{{i}}">{{ this.formConfig.labels.titulo }}</label>
                     </p-floatlabel>
         
-                    <p-button icon="pi pi-trash" aria-label="Excluir meta" (onClick)="confirmarExclusao($event, i)" [disabled]="desabilitarExclusao()" />
+                    <p-button icon="pi pi-trash" aria-label="Excluir melhoria" (onClick)="confirmarExclusao($event, i)" [disabled]="desabilitarExclusao()" />
                 </div>
             </p-fluid>
         </ng-container>
     </ng-container>
 
     <div class="flex justify-end">
-        <p-button label="Adicionar" icon="pi pi-plus" (onClick)="addMeta()"/>
+        <p-button label="Adicionar" icon="pi pi-plus" (onClick)="addMelhoria()"/>
     </div>
 </form>
 

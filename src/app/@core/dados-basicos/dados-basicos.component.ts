@@ -36,6 +36,7 @@ export class DadosBasicosComponent {
   ) {
     this.createForm();
     this.obtemStatus();
+    this.obtemPlano();
   }
 
   createForm() {
@@ -49,7 +50,12 @@ export class DadosBasicosComponent {
     });
   }
 
+  obtemPlano() {
+    this.atualizaFormulario(this.planoAcaoService.plano);
+  }
+
   atualizaFormulario(plano: PlanoAcao) {
+    if(!plano) return;
     Object.keys(this.form.controls).forEach(campo => {
       if(!!plano[campo]) {
         switch(campo) {
@@ -78,7 +84,7 @@ export class DadosBasicosComponent {
   }
 
   avancar() {
-    this.planoAcaoService.cadastraDadosBasicos(this.form.getRawValue());
+    this.planoAcaoService.salvarDadosBasicos(this.form.getRawValue());
     this.router.navigate(['..', 'objetivos'], { relativeTo: this.route });
   }
 }
