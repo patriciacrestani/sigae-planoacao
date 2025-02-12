@@ -22,12 +22,10 @@ export class PlanoAcaoService {
     return (!!this.planos && this.planos.length > 0);
   }
 
-  carregaPlano(idPlano) {
-    this.plano = new PlanoAcao(this.possuiPlanos() ? this.planos.find(idPlano) : null);
-  }
-
   novoPlano(plano?: PlanoAcao) {
     this.plano = new PlanoAcao(plano);
+    this.localStorageService.setItem(this.plano);
+    return this.plano;
   }
 
   salvarDadosBasicos(dadosBasicos) {
@@ -65,10 +63,13 @@ export class PlanoAcaoService {
     );
   }
 
-  getPlano() {
-    return this.http.get<any[]>("https://example.com/plano-acao/1").pipe(
+  getPlano(idPlano) {
+    console.log("getPlano")
+    return this.http.get<any>(`https://example.com/plano-acao/${idPlano}`).pipe(
       map(plano => 
-        this.plano = new PlanoAcao(plano)
+        this.novoPlano(plano)
+        // this.plano = new PlanoAcao(plano);
+        // this.localStorageService.setItem(this.plano);
       )
     );
   }

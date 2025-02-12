@@ -1,6 +1,5 @@
-<form [formGroup]="form" *ngIf="form" class="form">
-    <ng-container formArrayName="melhorias">
-        <ng-container *ngFor="let melhoriaForm of melhoriasForms; let i = index">
+<form formArrayName="melhorias" *ngIf="form" class="form">
+        <ng-container *ngFor="let melhoriaForm of formControls; let i = index">
             <p-fluid>
                 <div class="pt-5 pb-4 flex gap-4 w-full" [formGroup]="melhoriaForm">
                     <p-floatlabel class="grow">
@@ -12,10 +11,18 @@
                 </div>
             </p-fluid>
         </ng-container>
-    </ng-container>
 
     <div class="flex justify-end">
-        <p-button label="Adicionar" icon="pi pi-plus" (onClick)="addMelhoria()"/>
+        <p-button label="Adicionar" [text]="true" icon="pi pi-plus" (onClick)="addMelhoria()"/>
+    </div>
+
+    <div class="pt-6 flex justify-end">
+        <p-button 
+            label="Avançar" 
+            icon="pi pi-arrow-right" 
+            iconPos="right" 
+            [disabled]="desabilitaAvancar()"
+            (onClick)="avancar()" />
     </div>
 </form>
 

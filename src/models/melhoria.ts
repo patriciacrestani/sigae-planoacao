@@ -18,8 +18,9 @@ export class Melhoria implements IMelhoria {
     }
 
     constructor(melhoria) {
-        this.id = melhoria["id"];
-        this.titulo = melhoria["titulo"];
+        if(!melhoria) return;
+        this.id = melhoria["id"] ? melhoria["id"] : 0;
+        this.titulo = melhoria["titulo"] ? melhoria["titulo"] : "";
         if(!!melhoria["acoes"] && melhoria["acoes"].length > 0) {
             this.acoes = melhoria["acoes"];
         } else {

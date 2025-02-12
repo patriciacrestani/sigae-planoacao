@@ -23,7 +23,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class MelhoriasComponent {
   readonly formConfig = melhoriasFormConfig;
-  form: FormGroup;
+  form: FormArray<any>;
 
   constructor(
     private fb: FormBuilder,
@@ -38,25 +38,19 @@ export class MelhoriasComponent {
   }
 
   createForm() {
-    this.form = this.fb.group({
-      melhorias: new FormArray([]),
-    });
+    this.form = new FormArray<any>([]);
   }
 
   obtemPlano() {
     this.atualizaFormulario(this.planoAcaoService.plano);
   }
   
-  get melhorias(): FormArray {
-    return this.form.get("melhorias") as FormArray;
-  }
-
-  get melhoriasForms(): FormGroup[] {
-    return this.melhorias.controls as FormGroup[];
+  get formControls(): FormGroup[] {
+    return this.form.controls as FormGroup[];
   }
 
   addMelhoria(melhoria?: Melhoria) {
-    this.melhorias.push(this.fb.group({
+    this.form.push(this.fb.group({
       id: [melhoria ? melhoria.id : ''],
       titulo: [melhoria ? melhoria.id : ''],
       indPossuiAcoes: [melhoria ? melhoria.indPossuiAcoes : false]
@@ -64,15 +58,15 @@ export class MelhoriasComponent {
   }
 
   excluirMelhoria(melhoriaIndex) {
-    if(this.melhorias.at(melhoriaIndex).get("id")!.value) {
-      this.planoAcaoService.excluirMelhoria(this.melhorias.at(melhoriaIndex).get("id")!.value);
+    if(this.form.at(melhoriaIndex).get("id")!.value) {
+      this.planoAcaoService.excluirMelhoria(this.form.at(melhoriaIndex).get("id")!.value);
     }
-    this.melhorias.removeAt(melhoriaIndex);
+    this.form.removeAt(melhoriaIndex);
     this.messageService.add({ severity: 'success', detail: 'Melhoria excluída!' });
   }
 
   confirmarExclusao(event: Event, melhoriaIndex) {
-    if(this.melhorias.at(melhoriaIndex).get("indPossuiAcoes")!.value) {
+    if(this.form.at(melhoriaIndex).get("indPossuiAcoes")!.value) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
         message: 'Ao excluir esta melhoria, todas as ações atreladas a ela também serão excluída. Deseja continuar?',
@@ -98,7 +92,7 @@ export class MelhoriasComponent {
   }
 
   desabilitarExclusao(): boolean {
-    return (this.melhorias.length == 1);
+    return (this.form.length == 1);
   }
 
   atualizaFormulario(plano: PlanoAcao) {

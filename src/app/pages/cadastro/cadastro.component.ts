@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { StepsModule } from 'primeng/steps';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
+import { PlanoAcao } from '../../../models/plano-acao';
 
 @Component({
   selector: 'app-cadastro',
@@ -27,6 +28,7 @@ export class CadastroComponent {
       routerLink: 'acoes'
     }
   ];
+  plano: PlanoAcao;
 
   constructor(
     private route: ActivatedRoute,
@@ -37,7 +39,17 @@ export class CadastroComponent {
 
   checkRouteId() {
     this.route.paramMap.subscribe(params => {
-      this.planoAcaoService.carregaPlano(params.get("id"));
+      console.log(params.get("id"));
+      this.obtemPlano(params.get("id"));
+    });
+  }
+
+  obtemPlano(idPlano) {
+    this.planoAcaoService.getPlano(idPlano).subscribe({
+      next:(v) => {
+        this.plano = v;
+      }, 
+      error: (e) => console.error(e)
     });
   }
 }

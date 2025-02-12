@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ConfirmationService, MessageService } from 'primeng/api';
@@ -9,14 +9,17 @@ import { acoesFormConfig } from './acoes-form-config';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { Melhoria } from '../../../models/melhoria';
+import { ModalCadastrarAcaoComponent } from "../modal-cadastrar-acao/modal-cadastrar-acao.component";
 
 @Component({
   selector: 'app-acoes',
-  imports: [CommonModule, TableModule, ButtonModule],
+  imports: [CommonModule, TableModule, ButtonModule, ModalCadastrarAcaoComponent],
   templateUrl: './acoes.component.html',
-  styleUrl: './acoes.component.scss'
+  styleUrl: './acoes.component.scss',
+  providers: [ConfirmationService, MessageService]
 })
 export class AcoesComponent {
+  @ViewChild('modalCadastrarAcao') modalCadastrarAcao: ModalCadastrarAcaoComponent;
   readonly formConfig = acoesFormConfig;
   form: FormGroup;
   melhorias: Melhoria[];
@@ -27,14 +30,20 @@ export class AcoesComponent {
     private planoAcaoService: PlanoAcaoService,
     private confirmationService: ConfirmationService, 
     private messageService: MessageService
-  ) { }
-
-  adicionarAcao() {
-
+  ) { 
+    this.obtemPlano();
+  }
+  
+  obtemPlano() {
+    this.melhorias = this.planoAcaoService.plano.melhorias ? this.planoAcaoService.plano.melhorias : [];
   }
 
-  editarAcao(idAcao) {
+  adicionarAcao() {
+    this.modalCadastrarAcao.exibirModal();
+  }
 
+  editarAcao(acao: Acao) {
+    this.modalCadastrarAcao.exibirModal(acao);
   }
 
   excluirAcao(idAcao) {

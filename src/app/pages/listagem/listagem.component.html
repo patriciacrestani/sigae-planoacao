@@ -28,7 +28,7 @@
                     <a [routerLink]="'/visualizar/'.concat(plano.id)" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Visualizar">
                         <i class="pi pi-search"></i>
                     </a>
-                    <a [routerLink]="'/editar/'.concat(plano.id)" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
+                    <a routerLink="/edicao/{{plano.id}}/dados-basicos" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
                         <i class="pi pi-pencil"></i>
                     </a>
                     <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluir(plano.id)" [text]="true" />

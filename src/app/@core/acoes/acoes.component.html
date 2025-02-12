@@ -1,4 +1,4 @@
-<div class="form">
+<div class="form" *ngIf="!!melhorias">
     <div *ngFor="let melhoria of melhorias; let iMelhoria = index">
         <div class="flex justify-between">
             <h2>{{melhoria.titulo}}</h2>
@@ -23,7 +23,7 @@
                         <td>{{ acao.dataFimPrevisto }}</td>
                         <td>{{ acao.responsaveis.length }}</td>
                         <td>
-                            <p-button icon="pi pi-pencil" aria-label="Editar" (onClick)="editarAcao(acao.id)" [text]="true" />
+                            <p-button icon="pi pi-pencil" aria-label="Editar" (onClick)="editarAcao(acao)" [text]="true" />
                             <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluirAcao(acao.id)" [text]="true" />
                         </td>
                     </tr>
@@ -36,3 +36,7 @@
         </ng-container>
     </div>
 </div>
+
+<app-modal-cadastrar-acao
+    #modalCadastrarAcao
+></app-modal-cadastrar-acao>

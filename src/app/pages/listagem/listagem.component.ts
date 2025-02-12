@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { IPlanoAcao, PlanoAcao } from '../../../models/plano-acao';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
+import { PlanoAcaoService } from '../../services/plano-acao.service';
 
 
 @Component({
@@ -24,6 +25,19 @@ export class ListagemComponent {
       }
     }
   ];
+
+  constructor(private planoAcaoService: PlanoAcaoService) {
+    this.obtemPlanos();
+  }
+
+  obtemPlanos() {
+    this.planoAcaoService.getPlanos().subscribe({
+      next:(v) => {
+        this.planosAcao = v;
+      }, 
+      error: (e) => console.error(e)
+    });
+  }
 
   excluir(planoId) {
 

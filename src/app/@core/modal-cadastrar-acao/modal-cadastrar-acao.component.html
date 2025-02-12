@@ -1,0 +1,44 @@
+<p-dialog [(visible)]="visible" [modal]="true" [style]="{ width: '25rem' }">
+    <ng-template #header>
+        <h3>Cadastrar ação</h3>
+    </ng-template>
+
+    <form [formGroup]="form" *ngIf="form">
+        <p-fluid>
+            <div class="pt-5 pb-4">
+                <p-floatlabel>
+                    <input id="descricao" pInputText formControlName="descricao" />
+                    <label for="descricao">{{ this.formConfig.labels.descricao }}</label>
+                </p-floatlabel>
+            </div>
+
+            <div class="pt-5 pb-4">
+                <p-floatlabel class="grow">
+                    <p-datepicker formControlName="dataInicioPrevisto" inputId="dataInicioPrevisto" showIcon iconDisplay="input"  />
+                    <label for="dataInicioPrevisto">{{ this.formConfig.labels.dataInicioPrevisto }}</label>
+                </p-floatlabel>
+            </div>
+
+            <div class="pt-5 pb-4">
+        
+                <p-floatlabel class="grow">
+                    <p-datepicker formControlName="dataFimPrevisto" inputId="dataFimPrevisto" showIcon iconDisplay="input" />
+                    <label for="dataFimPrevisto">{{ this.formConfig.labels.dataFimPrevisto }}</label>
+                </p-floatlabel>
+            </div>
+
+            <div class="flex flex-row justify-stretch pt-4 pb-4 w-full">
+                <p-floatlabel class="w-full md:w-56 grow" variant="on">
+                    <p-select formControlName="responsavel" inputId="on_label" [options]="pessoas" optionLabel="nome" styleClass="w-full" [filter]="true" filterBy="nome" />
+                    <label for="on_label">{{ this.formConfig.labels.responsavel }}</label>
+                </p-floatlabel>
+            </div>
+        </p-fluid>
+    </form>
+
+    
+    <ng-template #footer>
+        <p-button label="Fechar" [text]="true" severity="secondary" (click)="fecharModal()" />
+        <p-button label="Salvar" [outlined]="true" (click)="salvar()" />
+    </ng-template>
+</p-dialog>

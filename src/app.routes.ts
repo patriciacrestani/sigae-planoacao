@@ -15,6 +15,11 @@ export const appRoutes: Routes = [
         component: CadastroComponent,
         children: [
             { 
+                path: '', 
+                pathMatch: 'prefix',
+                redirectTo: 'dados-basicos' 
+            },
+            { 
                 path: 'dados-basicos',
                 component: DadosBasicosComponent
             },
@@ -32,6 +37,11 @@ export const appRoutes: Routes = [
         path: 'edicao/:id', 
         component: CadastroComponent,
         children: [
+            { 
+                path: ':id', 
+                pathMatch: 'prefix',
+                redirectTo: 'dados-basicos' 
+            },
             { 
                 path: 'dados-basicos',
                 component: DadosBasicosComponent
