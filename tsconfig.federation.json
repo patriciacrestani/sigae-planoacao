@@ -5,7 +5,8 @@
     "types": []
   },
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "src/app/pages/total/total.component.ts"
   ],
   "include": [
     "src/**/*.d.ts"

@@ -6,6 +6,8 @@ module.exports = withNativeFederation({
 
   exposes: {
     './Component': './src/app.component.ts',
+    './Total': './src/app/pages/total/total.component.ts',
+
     "./routes": "./src/app.routes.ts",
   },
 

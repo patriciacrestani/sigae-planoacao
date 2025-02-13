@@ -88,4 +88,11 @@ export const PlanoAcaoMock = [
             { status: 200 }
         );
     }),
+
+    http.get('https://example.com/plano-acao/total', () => {
+        return HttpResponse.json(
+            2,
+            { status: 200 }
+        );
+    }),
 ];

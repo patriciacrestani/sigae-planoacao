@@ -88,4 +88,9 @@ export class PlanoAcaoService {
     if(indexPlano != -1) this.planos.splice(indexPlano, 1);
     return this.http.delete<any>(`https://example.com/plano-acao/${idPlano}`);
   }
+
+  
+  obterTotaisPlanosAcao() {
+    return this.http.get('https://example.com/plano-acao/total');
+  }
 }
