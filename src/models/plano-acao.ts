@@ -6,8 +6,8 @@ export interface IPlanoAcao {
     id: number;
     titulo: string;
     descricao?: string;
-    dataInicio: string;
-    dataFim: string;
+    dataInicio: Date;
+    dataFim: Date;
     status: Status;
     melhorias?: Melhoria[];
 }
@@ -16,21 +16,26 @@ export class PlanoAcao {
     id: number;
     titulo: string;
     descricao?: string;
-    dataInicio: string;
-    dataFim: string;
+    dataInicio: Date;
+    dataFim: Date;
     status: Status;
     melhorias?: Melhoria[];
 
     constructor(plano?) {
-        if(!!plano) {
-            this.id = plano.id;
-            this.titulo = plano.titulo;
-            this.descricao = plano.descricao;
-            this.dataInicio = plano.dataInicio;
-            this.dataFim = plano.dataFim;
-            this.status = new Status(plano.status);
-            this.mapeiaMelhorias(plano.melhorias);
+        if(!plano) {
+            return;
         }
+        this.id = plano.id;
+        this.titulo = plano.titulo;
+        this.descricao = plano.descricao;
+        if(typeof(plano.dataInicio) == 'string')  this.dataInicio = new Date(plano.dataInicio);
+        else this.dataInicio = plano.dataInicio;
+        
+        if(typeof(plano.dataFim) == 'string')  this.dataFim = new Date(plano.dataFim);
+        else this.dataFim = plano.dataFim;
+
+        this.status = new Status(plano.status);
+        this.mapeiaMelhorias(plano.melhorias);
     }
 
     get possuiMelhorias(): boolean {

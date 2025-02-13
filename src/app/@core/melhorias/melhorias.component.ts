@@ -23,7 +23,7 @@ import { ToastModule } from 'primeng/toast';
 })
 export class MelhoriasComponent {
   readonly formConfig = melhoriasFormConfig;
-  form: FormArray<any>;
+  form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
@@ -38,38 +38,44 @@ export class MelhoriasComponent {
   }
 
   createForm() {
-    this.form = new FormArray<any>([]);
+    this.form = this.fb.group({
+      melhorias: new FormArray<any>([])
+    });
   }
 
   obtemPlano() {
     this.atualizaFormulario(this.planoAcaoService.plano);
   }
   
+  get melhorias(): FormArray {
+    return this.form.get("melhorias") as FormArray;
+  }
+
   get formControls(): FormGroup[] {
-    return this.form.controls as FormGroup[];
+    return this.melhorias.controls as FormGroup[];
   }
 
   addMelhoria(melhoria?: Melhoria) {
-    this.form.push(this.fb.group({
+    this.melhorias.push(this.fb.group({
       id: [melhoria ? melhoria.id : ''],
-      titulo: [melhoria ? melhoria.id : ''],
+      titulo: [melhoria ? melhoria.titulo : ''],
       indPossuiAcoes: [melhoria ? melhoria.indPossuiAcoes : false]
     }));
   }
 
   excluirMelhoria(melhoriaIndex) {
-    if(this.form.at(melhoriaIndex).get("id")!.value) {
-      this.planoAcaoService.excluirMelhoria(this.form.at(melhoriaIndex).get("id")!.value);
+    if(this.melhorias.at(melhoriaIndex).get("id")!.value) {
+      this.planoAcaoService.excluirMelhoria(this.melhorias.at(melhoriaIndex).get("id")!.value);
     }
-    this.form.removeAt(melhoriaIndex);
+    this.melhorias.removeAt(melhoriaIndex);
     this.messageService.add({ severity: 'success', detail: 'Melhoria excluída!' });
   }
 
   confirmarExclusao(event: Event, melhoriaIndex) {
-    if(this.form.at(melhoriaIndex).get("indPossuiAcoes")!.value) {
+    if(this.melhorias.at(melhoriaIndex).get("indPossuiAcoes")!.value) {
       this.confirmationService.confirm({
         target: event.target as EventTarget,
-        message: 'Ao excluir esta melhoria, todas as ações atreladas a ela também serão excluída. Deseja continuar?',
+        message: 'Ao excluir esta melhoria, todas as ações atreladas a ela também serão excluídas. Deseja continuar?',
         header: 'Atenção!',
         closable: true,
         closeOnEscape: true,
@@ -92,7 +98,7 @@ export class MelhoriasComponent {
   }
 
   desabilitarExclusao(): boolean {
-    return (this.form.length == 1);
+    return (this.melhorias.length == 1);
   }
 
   atualizaFormulario(plano: PlanoAcao) {
@@ -100,8 +106,9 @@ export class MelhoriasComponent {
       plano.melhorias?.forEach(melhoria => {
         this.addMelhoria(melhoria);
       });
+    } else {
+      this.addMelhoria();
     }
-    this.addMelhoria();
   }
 
   desabilitaAvancar(): boolean {
@@ -109,7 +116,7 @@ export class MelhoriasComponent {
   }
 
   avancar() {
-    this.planoAcaoService.salvarMelhorias(this.form.getRawValue());
+    this.planoAcaoService.salvarMelhorias(this.form.getRawValue().melhorias);
     this.router.navigate(['..', 'acoes'], { relativeTo: this.route });
   }
 }

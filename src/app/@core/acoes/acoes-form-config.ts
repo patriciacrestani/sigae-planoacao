@@ -4,13 +4,13 @@ export const acoesFormConfig = {
         descricao: "Descrição",
         dataInicioPrevisto: "Data de inicio prevista",
         dataFimPrevisto: "Data de fim prevista",
-        responsavel: "Responsáveis"
+        responsavel: "Responsável"
     },
     placeholders: {
         descricao: "Digite a descrição",
         dataInicioPrevisto: "DD/MM/AAAA",
         dataFimPrevisto: "DD/MM/AAAA",
-        responsavel: "Selecione os responsáveis"
+        responsavel: "Selecione o responsável"
     },
     maxLengths: {
         descricao: 255

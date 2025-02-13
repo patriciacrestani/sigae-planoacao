@@ -5,28 +5,23 @@ import { IPlanoAcao, PlanoAcao } from '../../../models/plano-acao';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 
 @Component({
   selector: 'app-listagem',
-  imports: [CommonModule, RouterModule, TableModule, ButtonModule],
-  templateUrl: './listagem.component.html'
+  imports: [CommonModule, RouterModule, TableModule, ButtonModule, ToastModule],
+  templateUrl: './listagem.component.html',
+  providers: [MessageService]
 })
 export class ListagemComponent {
-  planosAcao: IPlanoAcao[] = [
-    {
-      id: 1,
-      titulo: "Teste",
-      dataInicio: "05/02/2025",
-      dataFim: "05/02/2025",
-      status: {
-        id: 1,
-        descricao: "Teste"
-      }
-    }
-  ];
+  planosAcao: IPlanoAcao[] = [ ];
 
-  constructor(private planoAcaoService: PlanoAcaoService) {
+  constructor(
+    private planoAcaoService: PlanoAcaoService,
+    private messageService: MessageService
+  ) {
     this.obtemPlanos();
   }
 
@@ -39,8 +34,13 @@ export class ListagemComponent {
     });
   }
 
-  excluir(planoId) {
-
+  excluir(idPlano) {
+    this.planoAcaoService.excluirPlano(idPlano).subscribe({
+      next:(v) => {
+        this.messageService.add({ severity: 'success', detail: 'Plano excluído!' });
+      }, 
+      error: (e) => console.error(e)
+    });
   }
 
 }

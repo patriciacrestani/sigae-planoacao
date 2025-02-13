@@ -38,8 +38,8 @@ export const appRoutes: Routes = [
         component: CadastroComponent,
         children: [
             { 
-                path: ':id', 
-                pathMatch: 'prefix',
+                path: '', 
+                pathMatch: 'full',
                 redirectTo: 'dados-basicos' 
             },
             { 

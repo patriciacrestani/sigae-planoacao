@@ -10,6 +10,8 @@ import { DatePickerModule } from 'primeng/datepicker';
 import { acoesFormConfig } from '../acoes/acoes-form-config';
 import { Select } from 'primeng/select';
 import { Acao } from '../../../models/acao';
+import { PessoaService } from '../../services/pessoa.service';
+import { Pessoa } from '../../../models/pessoa';
 
 @Component({
   selector: 'app-modal-cadastrar-acao',
@@ -22,10 +24,23 @@ export class ModalCadastrarAcaoComponent {
   visible: boolean = false;
   form: FormGroup;
   formConfig = acoesFormConfig;
-  pessoas = [];
+  pessoas: Pessoa[] = [];
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private pessoaService: PessoaService
+  ) {
     this.createForm();
+    this.obterPessoas();
+  }
+  
+  obterPessoas() {
+    this.pessoaService.obterPessoas().subscribe({ 
+      next:(v) => {
+        this.pessoas = v;
+      }, 
+      error: (e) => console.error(e)
+    });
   }
 
   exibirModal(acao?: Acao) {
@@ -58,5 +73,6 @@ export class ModalCadastrarAcaoComponent {
 
   salvar() {
     this.atualizaAcao.emit(this.form.getRawValue());
+    this.fecharModal();
   }
 }

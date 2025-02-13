@@ -3,7 +3,7 @@ import { LocalStorageService } from './local-storage.service';
 import { PlanoAcao } from '../../models/plano-acao';
 import { Status } from '../../models/status';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs';
+import { map, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +26,15 @@ export class PlanoAcaoService {
     this.plano = new PlanoAcao(plano);
     this.localStorageService.setItem(this.plano);
     return this.plano;
+  }
+
+  atualizaPlanos() {
+    if(!!this.plano.id && this.plano.id != 0) {
+      let indexPlano = this.planos.findIndex(p => p.id == this.plano.id);
+      if(indexPlano != -1) this.planos[indexPlano] = this.plano;
+    } else {
+      this.planos.push(this.plano);
+    }
   }
 
   salvarDadosBasicos(dadosBasicos) {
@@ -54,6 +63,9 @@ export class PlanoAcaoService {
   }
 
   getPlanos() {
+    if(this.possuiPlanos()) {
+      return of(this.planos);
+    }
     return this.http.get<any[]>("https://example.com/plano-acao").pipe(
       map(planos => 
         this.planos = planos.map(p => 
@@ -64,13 +76,16 @@ export class PlanoAcaoService {
   }
 
   getPlano(idPlano) {
-    console.log("getPlano")
     return this.http.get<any>(`https://example.com/plano-acao/${idPlano}`).pipe(
       map(plano => 
         this.novoPlano(plano)
-        // this.plano = new PlanoAcao(plano);
-        // this.localStorageService.setItem(this.plano);
       )
     );
+  }
+
+  excluirPlano(idPlano) {
+    let indexPlano = this.planos.findIndex(p => p.id == idPlano);
+    if(indexPlano != -1) this.planos.splice(indexPlano, 1);
+    return this.http.delete<any>(`https://example.com/plano-acao/${idPlano}`);
   }
 }

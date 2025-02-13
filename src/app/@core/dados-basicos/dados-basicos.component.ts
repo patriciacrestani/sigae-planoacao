@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { AfterViewInit, Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { dadosBasicosFormConfig } from './dados-basicos-form-config';
 import { FloatLabelModule } from 'primeng/floatlabel';
@@ -36,7 +36,6 @@ export class DadosBasicosComponent {
   ) {
     this.createForm();
     this.obtemStatus();
-    this.obtemPlano();
   }
 
   createForm() {
@@ -48,9 +47,11 @@ export class DadosBasicosComponent {
       dataFim: ['', Validators.required],
       status: ['', Validators.required],
     });
+    this.obtemPlano();
   }
 
   obtemPlano() {
+    console.log(this.planoAcaoService.plano);
     this.atualizaFormulario(this.planoAcaoService.plano);
   }
 
@@ -59,8 +60,11 @@ export class DadosBasicosComponent {
     Object.keys(this.form.controls).forEach(campo => {
       if(!!plano[campo]) {
         switch(campo) {
-          case 'status':
-            this.form.controls[campo].setValue(plano[campo].id);
+          case 'dataInicio':
+            this.form.controls[campo].setValue(new Date(plano.dataInicio));
+            break;
+          case 'dataFim':
+            this.form.controls[campo].setValue(new Date(plano.dataFim));
             break;
           default:
             this.form.controls[campo].setValue(plano[campo]);
@@ -85,6 +89,6 @@ export class DadosBasicosComponent {
 
   avancar() {
     this.planoAcaoService.salvarDadosBasicos(this.form.getRawValue());
-    this.router.navigate(['..', 'objetivos'], { relativeTo: this.route });
+    this.router.navigate(['..', 'melhorias'], { relativeTo: this.route });
   }
 }

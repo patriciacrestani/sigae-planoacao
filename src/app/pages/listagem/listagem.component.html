@@ -20,42 +20,19 @@
         </ng-template>
         <ng-template #body let-plano>
             <tr>
-                <td>{{plano.titulo}}</td>
-                <td>{{plano.status.descricao}}</td>
-                <td>{{plano.dataInicio}}</td>
-                <td>{{plano.dataFim}}</td>
+                <td>{{ plano.titulo }}</td>
+                <td>{{ plano.status.descricao }}</td>
+                <td>{{ plano.dataInicio | date:'dd/MM/YYYY' }}</td>
+                <td>{{ plano.dataFim | date:'dd/MM/YYYY' }}</td>
                 <td>
-                    <a [routerLink]="'/visualizar/'.concat(plano.id)" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Visualizar">
-                        <i class="pi pi-search"></i>
-                    </a>
                     <a routerLink="/edicao/{{plano.id}}/dados-basicos" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
                         <i class="pi pi-pencil"></i>
                     </a>
                     <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluir(plano.id)" [text]="true" />
-
-                    <!-- <p-button 
-                        icon="pi pi-search" 
-                        class="mr-2" 
-                        [rounded]="true"
-                        [text]="true" 
-                        [plain]="true"
-                        (onClick)="editarPessoa(pessoa)" />
-                    
-                    <p-button 
-                        icon="pi pi-pencil" 
-                        class="mr-2" 
-                        [rounded]="true"
-                        [text]="true" 
-                        [plain]="true"
-                        (onClick)="editarPessoa(pessoa)" />
-                    <p-button 
-                        icon="pi pi-trash" 
-                        [text]="true" 
-                        [rounded]="true"
-                        [plain]="true"
-                        (onClick)="confirmaExclusao(pessoa)" /> -->
                 </td>
             </tr>
         </ng-template>
     </p-table>
 </div>
+
+<p-toast />

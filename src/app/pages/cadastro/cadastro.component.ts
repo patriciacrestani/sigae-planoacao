@@ -29,6 +29,7 @@ export class CadastroComponent {
     }
   ];
   plano: PlanoAcao;
+  carregando: boolean = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,14 +41,18 @@ export class CadastroComponent {
   checkRouteId() {
     this.route.paramMap.subscribe(params => {
       console.log(params.get("id"));
-      this.obtemPlano(params.get("id"));
+      if(!!params.get("id")) this.obtemPlano(params.get("id"));
+      else {
+        this.planoAcaoService.novoPlano();
+        this.carregando = false;
+      }
     });
   }
 
   obtemPlano(idPlano) {
     this.planoAcaoService.getPlano(idPlano).subscribe({
       next:(v) => {
-        this.plano = v;
+        this.carregando = false;
       }, 
       error: (e) => console.error(e)
     });

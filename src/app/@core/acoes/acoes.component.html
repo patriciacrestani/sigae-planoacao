@@ -1,8 +1,8 @@
 <div class="form" *ngIf="!!melhorias">
-    <div *ngFor="let melhoria of melhorias; let iMelhoria = index">
+    <div class=" pt-8" *ngFor="let melhoria of melhorias; let iMelhoria = index">
         <div class="flex justify-between">
             <h2>{{melhoria.titulo}}</h2>
-            <p-button label="Adicionar ação" icon="pi pi-plus" (onClick)="adicionarAcao()"/>
+            <p-button label="Adicionar ação" icon="pi pi-plus" (onClick)="adicionarAcao(melhoria)"/>
         </div>
 
         <ng-container *ngIf="melhoria.indPossuiAcoes">
@@ -19,12 +19,12 @@
                 <ng-template #body let-acao>
                     <tr>
                         <td>{{ acao.descricao }}</td>
-                        <td>{{ acao.dataInicioPrevisto }}</td>
-                        <td>{{ acao.dataFimPrevisto }}</td>
-                        <td>{{ acao.responsaveis.length }}</td>
+                        <td>{{ acao.dataInicioPrevisto | date:'dd/MM/YYYY' }}</td>
+                        <td>{{ acao.dataFimPrevisto | date:'dd/MM/YYYY' }}</td>
+                        <td>{{ acao.responsavel?.nome }}</td>
                         <td>
-                            <p-button icon="pi pi-pencil" aria-label="Editar" (onClick)="editarAcao(acao)" [text]="true" />
-                            <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluirAcao(acao.id)" [text]="true" />
+                            <p-button icon="pi pi-pencil" aria-label="Editar" (onClick)="editarAcao(melhoria, acao)" [text]="true" />
+                            <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluirAcao(melhoria, acao)" [text]="true" />
                         </td>
                     </tr>
                 </ng-template>
@@ -35,8 +35,19 @@
             <p>Nenhuma ação cadastrada para esta melhoria.</p>
         </ng-container>
     </div>
+    
+    <div class="pt-6 flex justify-end">
+        <p-button 
+            label="Avançar" 
+            icon="pi pi-arrow-right" 
+            iconPos="right" 
+            (onClick)="avancar()" />
+    </div>
 </div>
 
 <app-modal-cadastrar-acao
     #modalCadastrarAcao
+    (atualizaAcao)="atualizaAcao($event)"
 ></app-modal-cadastrar-acao>
+
+<p-toast />

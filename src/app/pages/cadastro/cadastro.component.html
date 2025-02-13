@@ -1,4 +1,9 @@
 <div class="card">
     <p-steps  [model]="etapas" [readonly]="false" />
-    <router-outlet></router-outlet>
+    <ng-container *ngIf="carregando">
+        <p>Carregando...</p>
+    </ng-container>
+    <ng-container *ngIf="!carregando">
+        <router-outlet></router-outlet>
+    </ng-container>
 </div>
