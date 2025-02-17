@@ -4,7 +4,7 @@
         <!-- <a routerLink="/cadastrar" class="p-button font-bold">
             <i class="pi pi-plus"></i> Cadastrar
         </a> -->
-        <a routerLink="/cadastro/dados-basicos" class="p-button font-bold">
+        <a routerLink="./cadastro/dados-basicos" class="p-button font-bold">
             Cadastrar
         </a>
     </div>
@@ -25,7 +25,7 @@
                 <td>{{ plano.dataInicio | date:'dd/MM/YYYY' }}</td>
                 <td>{{ plano.dataFim | date:'dd/MM/YYYY' }}</td>
                 <td>
-                    <a routerLink="/edicao/{{plano.id}}/dados-basicos" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
+                    <a routerLink="./edicao/{{plano.id}}/dados-basicos" class="p-button p-button-icon-only p-button-text font-bold" aria-label="Editar">
                         <i class="pi pi-pencil"></i>
                     </a>
                     <p-button icon="pi pi-trash" aria-label="Excluir" (onClick)="excluir(plano.id)" [text]="true" />
