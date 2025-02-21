@@ -16,6 +16,8 @@ import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from "primeng/floatlabel"
 import { FluidModule } from 'primeng/fluid';
+import { Escola } from '../../../models/escola';
+import { EscolaService } from '../../services/escola.service';
 
 @Component({
   selector: 'app-dados-basicos',
@@ -27,15 +29,18 @@ export class DadosBasicosComponent {
   readonly formConfig = dadosBasicosFormConfig;
   form: FormGroup;
   status: Status[];
+  escolas: Escola[];
 
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private planoAcaoService: PlanoAcaoService
+    private planoAcaoService: PlanoAcaoService,
+    private escolaService: EscolaService,
   ) {
     this.createForm();
     this.obtemStatus();
+    this.obtemEscolas();
   }
 
   createForm() {
@@ -46,6 +51,7 @@ export class DadosBasicosComponent {
       dataInicio: ['', Validators.required],
       dataFim: ['', Validators.required],
       status: ['', Validators.required],
+      escola: ['', Validators.required],
     });
     this.obtemPlano();
   }
@@ -78,6 +84,15 @@ export class DadosBasicosComponent {
     this.planoAcaoService.getStatus().subscribe({
       next:(v) => {
         this.status = v;
+      }, 
+      error: (e) => console.error(e)
+    });
+  }
+
+  obtemEscolas() {
+    this.escolaService.obterEscolas().subscribe({
+      next:(v) => {
+        this.escolas = v;
       }, 
       error: (e) => console.error(e)
     });

@@ -1,3 +1,4 @@
+import { Escola } from "./escola";
 import { Melhoria } from "./melhoria";
 import { Status } from "./status";
 
@@ -18,6 +19,7 @@ export class PlanoAcao {
     descricao?: string;
     dataInicio: Date;
     dataFim: Date;
+    escola: Escola;
     status: Status;
     melhorias?: Melhoria[];
 
@@ -28,6 +30,7 @@ export class PlanoAcao {
         this.id = plano.id;
         this.titulo = plano.titulo;
         this.descricao = plano.descricao;
+        this.escola = plano.escola;
         if(typeof(plano.dataInicio) == 'string')  this.dataInicio = new Date(plano.dataInicio);
         else this.dataInicio = plano.dataInicio;
         

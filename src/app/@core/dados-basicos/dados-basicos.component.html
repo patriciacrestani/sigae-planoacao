@@ -17,6 +17,13 @@
                 <p-datepicker formControlName="dataFim" inputId="dataFim" showIcon iconDisplay="input" />
                 <label for="dataFim">{{ this.formConfig.labels.dataFim }}</label>
             </p-floatlabel>
+        </div>
+
+        <div class="flex flex-row justify-stretch gap-4 pt-4 pb-4 w-full">
+            <p-floatlabel class="grow">
+                <p-select formControlName="escola" inputId="over_label" [options]="escolas" optionLabel="nome"  styleClass="w-full" />
+                <label for="over_label">{{ this.formConfig.labels.escola }}</label>
+            </p-floatlabel>
     
             <p-floatlabel class="grow">
                 <p-select formControlName="status" inputId="over_label" [options]="status" optionLabel="descricao"  styleClass="w-full" />

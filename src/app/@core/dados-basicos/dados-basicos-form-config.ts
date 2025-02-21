@@ -4,14 +4,16 @@ export const dadosBasicosFormConfig = {
         descricao: "Descrição",
         dataInicio: "Data de inicio",
         dataFim: "Data de término",
-        status: "Status"
+        status: "Status",
+        escola: "Escola"
     },
     placeholders: {
         titulo: "Digite o título",
         descricao: "Digite uma descrição",
         dataInicio: "DD/MM/AAAA",
         dataFim: "DD/MM/AAAA",
-        status: "Selecione o status"
+        status: "Selecione o status",
+        escola: "Selecione a escola"
     },
     maxLengths: {
         // curto: 100,
