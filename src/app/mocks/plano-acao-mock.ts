@@ -9,6 +9,11 @@ export const PlanoAcaoMock = [
                     "titulo": "Plano Um",
                     "dataInicio": "2024-06-01",
                     "dataFim": "2025-04-01",
+                    "escola": { 
+                        "id": 1,
+                        "cnpj": "14.166.648/0001-47",
+                        "nome": "Escola A"
+                    },
                     "status": {
                         "id": 1,
                         "descricao": "Em progresso"
@@ -19,6 +24,11 @@ export const PlanoAcaoMock = [
                     "titulo": "Plano Completo",
                     "dataInicio": "2024-06-01",
                     "dataFim": "2025-04-01",
+                    "escola": {
+                        "id": 2,
+                        "cnpj": "35.783.453/0001-16",
+                        "nome": "Escola B"
+                    },
                     "status": {
                         "id": 1,
                         "descricao": "Em progresso"
@@ -37,6 +47,11 @@ export const PlanoAcaoMock = [
                 "dataInicio": "2024-06-01",
                 "dataFim": "2025-04-01",
                 "descricao": "Descrição de teste.",
+                "escola": { 
+                    "id": 1,
+                    "cnpj": "14.166.648/0001-47",
+                    "nome": "Escola A"
+                },
                 "status": {
                     "id": 1,
                     "descricao": "Em progresso"

@@ -6,17 +6,17 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { TextareaModule } from 'primeng/textarea';
 import { SelectModule } from 'primeng/select';
 import { DatePickerModule } from 'primeng/datepicker';
-import { Status } from '../../../models/status';
+import { Status } from '../../models/status';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PlanoAcao } from '../../../models/plano-acao';
+import { PlanoAcao } from '../../models/plano-acao';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
 import { FormsModule } from '@angular/forms';
 import { Select } from 'primeng/select';
 import { FloatLabel } from "primeng/floatlabel"
 import { FluidModule } from 'primeng/fluid';
-import { Escola } from '../../../models/escola';
+import { Escola } from '../../models/escola';
 import { EscolaService } from '../../services/escola.service';
 
 @Component({
@@ -57,7 +57,6 @@ export class DadosBasicosComponent {
   }
 
   obtemPlano() {
-    console.log(this.planoAcaoService.plano);
     this.atualizaFormulario(this.planoAcaoService.plano);
   }
 

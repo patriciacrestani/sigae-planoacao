@@ -12,6 +12,7 @@
         <ng-template #header>
             <tr>
                 <th>Título</th>
+                <th>Escola</th>
                 <th>Status</th>
                 <th>Data de inicio</th>
                 <th>Data fim</th>
@@ -21,6 +22,7 @@
         <ng-template #body let-plano>
             <tr>
                 <td>{{ plano.titulo }}</td>
+                <td>{{ plano.escola.nome }}</td>
                 <td>{{ plano.status.descricao }}</td>
                 <td>{{ plano.dataInicio | date:'dd/MM/YYYY' }}</td>
                 <td>{{ plano.dataFim | date:'dd/MM/YYYY' }}</td>

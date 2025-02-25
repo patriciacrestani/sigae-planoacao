@@ -10,6 +10,6 @@ export const setupMsw = async () => {
   //   return;
   // }
 
-  const worker = setupWorker(...PlanoAcaoMock.concat(StatusPlanoAcaoMock, EscolasMock));
+  const worker = setupWorker(...EscolasMock.concat(StatusPlanoAcaoMock, PlanoAcaoMock) );
   await worker.start();
 };

@@ -4,24 +4,22 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class LocalStorageService {
-  private static PlanoAcaoKey: string = 'PlanoAcaoKey';
-
   constructor() { }
 
-  setItem(value: any): void {
-    localStorage.setItem(LocalStorageService.PlanoAcaoKey, JSON.stringify(value));
+  setItem(key: string, value: any): void {
+    localStorage.setItem(key, JSON.stringify(value));
   }
 
-  getItem<T>(): T | null {
-    const value = localStorage.getItem(LocalStorageService.PlanoAcaoKey);
+  getItem<T>(key: string): T | null {
+    const value = localStorage.getItem(key);
     if (value) {
       return JSON.parse(value);
     }
     return null;
   }
 
-  removeItem(): void {
-    localStorage.removeItem(LocalStorageService.PlanoAcaoKey);
+  removeItem(key: string): void {
+    localStorage.removeItem(key);
   }
 
   clear(): void {

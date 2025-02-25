@@ -4,11 +4,11 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { PlanoAcaoService } from '../../services/plano-acao.service';
-import { Acao } from '../../../models/acao';
+import { Acao } from '../../models/acao';
 import { acoesFormConfig } from './acoes-form-config';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { Melhoria } from '../../../models/melhoria';
+import { Melhoria } from '../../models/melhoria';
 import { ModalCadastrarAcaoComponent } from "../modal-cadastrar-acao/modal-cadastrar-acao.component";
 import { ToastModule } from 'primeng/toast';
 

@@ -9,9 +9,9 @@ import { InputTextModule } from 'primeng/inputtext';
 import { DatePickerModule } from 'primeng/datepicker';
 import { acoesFormConfig } from '../acoes/acoes-form-config';
 import { Select } from 'primeng/select';
-import { Acao } from '../../../models/acao';
+import { Acao } from '../../models/acao';
 import { PessoaService } from '../../services/pessoa.service';
-import { Pessoa } from '../../../models/pessoa';
+import { Pessoa } from '../../models/pessoa';
 
 @Component({
   selector: 'app-modal-cadastrar-acao',

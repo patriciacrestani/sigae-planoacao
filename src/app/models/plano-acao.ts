@@ -51,6 +51,7 @@ export class PlanoAcao {
         this.dataInicio = dadosBasicos["dataInicio"];
         this.dataFim = dadosBasicos["dataFim"];
         this.status = dadosBasicos["status"];
+        this.escola = dadosBasicos["escola"];
     }
 
     mapeiaMelhorias(melhorias) {
