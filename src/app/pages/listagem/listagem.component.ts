@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { CommonModule } from '@angular/common';
 import { IPlanoAcao, PlanoAcao } from '../../models/plano-acao';
@@ -16,7 +16,7 @@ import { MenuMasterService } from '../../services/menu-master.service';
   templateUrl: './listagem.component.html',
   providers: [MessageService]
 })
-export class ListagemComponent {
+export class ListagemComponent implements OnDestroy {
   planosAcao: IPlanoAcao[] = [ ];
 
   constructor(
@@ -28,10 +28,12 @@ export class ListagemComponent {
     this.observaLocalStorage();
   }
 
+  ngOnDestroy(): void {
+    window.removeEventListener('storageChanged', () => {  });
+  }
+
   observaLocalStorage() {
-    window.addEventListener("storageChanged", (dataReceived: Event) => {
-      this.obtemPlanos()
-     });
+    window.addEventListener("storageChanged", () => { this.obtemPlanos() });
   }
 
   obtemPlanos(): void {
