@@ -1,4 +1,11 @@
 <div class="card">
+    
+    @if(this.isAuthenticated) {
+        <div class="flex justify-end mb-4">
+            <p>Usuário: {{ this.getName() }}</p>
+        </div>
+    } 
+    
     <div class="flex justify-between">
         <div class="font-semibold text-xl mb-4">Planos de ação</div>
         <!-- <a routerLink="/cadastrar" class="p-button font-bold">

@@ -23,6 +23,7 @@
     "@angular/router": "19.1.6",
     "@angular/service-worker": "19.1.6",
     "@angular/ssr": "19.1.7",
+    "@auth0/auth0-angular": "^2.2.3",
     "@primeng/themes": "~19.0.5",
     "chart.js": "4.4.2",
     "es-module-shims": "^1.5.12",

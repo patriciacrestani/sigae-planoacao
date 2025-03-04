@@ -5,9 +5,7 @@ module.exports = withNativeFederation({
   name: 'plano-acao',
 
   exposes: {
-    './Component': './src/app.component.ts',
     './Total': './src/app/pages/total/total.component.ts',
-
     "./routes": "./src/app.routes.ts",
   },
 
@@ -42,6 +40,14 @@ module.exports = withNativeFederation({
       packageInfo: {
         entryPoint: "node_modules/primeicons/package.json",
         version: "7.0.0",
+        esm: true,
+      },
+    },
+    "autenticacao": {
+      transient: true,
+      packageInfo: {
+        entryPoint: "node_modules/autenticacao/fesm2022/autenticacao.mjs",
+        version: "0.0.1",
         esm: true,
       },
     },
