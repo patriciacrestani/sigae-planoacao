@@ -50,8 +50,8 @@ export class DadosBasicosComponent {
       descricao: ['', Validators.compose([Validators.required, Validators.maxLength(this.formConfig.maxLengths.descricao), Validators.minLength(this.formConfig.minLengths.descricao)])],
       dataInicio: ['', Validators.required],
       dataFim: ['', Validators.required],
-      status: ['', Validators.required],
-      escola: ['', Validators.required],
+      status: [null, Validators.required],
+      escola: [null, Validators.required],
     });
     this.obtemPlano();
   }

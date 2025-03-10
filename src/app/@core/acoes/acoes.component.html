@@ -2,7 +2,7 @@
     <div class=" pt-8" *ngFor="let melhoria of melhorias; let iMelhoria = index">
         <div class="flex justify-between">
             <h2>{{melhoria.titulo}}</h2>
-            <p-button label="Adicionar ação" icon="pi pi-plus" (onClick)="adicionarAcao(melhoria)"/>
+            <p-button label="Adicionar ação" [text]="true" icon="pi pi-plus" (onClick)="adicionarAcao(melhoria)"/>
         </div>
 
         <ng-container *ngIf="melhoria.indPossuiAcoes">

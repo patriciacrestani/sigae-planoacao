@@ -7,7 +7,7 @@
             </p-floatlabel>
         </div>
     
-        <div class="flex flex-row justify-stretch gap-4 pt-4 pb-4 w-full">
+        <div class="flex flex-row justify-stretch gap-4 pt-6 pb-4 w-full">
             <p-floatlabel class="grow">
                 <p-datepicker formControlName="dataInicio" inputId="dataInicio" showIcon iconDisplay="input"  />
                 <label for="dataInicio">{{ this.formConfig.labels.dataInicio }}</label>
@@ -19,19 +19,19 @@
             </p-floatlabel>
         </div>
 
-        <div class="flex flex-row justify-stretch gap-4 pt-4 pb-4 w-full">
-            <p-floatlabel class="grow">
+        <div class="flex flex-row justify-stretch gap-4 pt-6 pb-4 w-full">
+            <p-floatlabel class="grow w-full md:w-56">
                 <p-select formControlName="escola" inputId="over_label" [options]="escolas" optionLabel="nome"  styleClass="w-full" />
                 <label for="over_label">{{ this.formConfig.labels.escola }}</label>
             </p-floatlabel>
     
-            <p-floatlabel class="grow">
+            <p-floatlabel class="grow w-full md:w-56">
                 <p-select formControlName="status" inputId="over_label" [options]="status" optionLabel="descricao"  styleClass="w-full" />
                 <label for="over_label">{{ this.formConfig.labels.status }}</label>
             </p-floatlabel>
         </div>
     
-        <div class="pt-4 pb-4">
+        <div class="pt-6 pb-4">
             <p-floatlabel>
                 <textarea pTextarea id="descricao" formControlName="descricao" rows="5" cols="30" style="resize: none" class="h-full"></textarea>
                 <label for="descricao">{{ this.formConfig.labels.descricao }}</label>
@@ -39,7 +39,7 @@
         </div>
     </p-fluid>
 
-    <div class="pt-4 flex justify-end">
+    <div class="pt-6 flex justify-end">
         <p-button 
             label="Avançar" 
             icon="pi pi-arrow-right" 
